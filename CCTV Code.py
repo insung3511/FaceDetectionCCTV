@@ -6,14 +6,9 @@ import time
 import csv
 import cv2
 
+print "======================START======================"
 all_count = 0     #Checking finding count
 true_count = 0    #Checking detection count
-
-def mylog(start_time, end_time, count):   #show real-time result
-    print ('st:%s, et:%s, cnt:%s', start_time, end_time, count)
-
-def Sendmail(mail_address, LocalTime):
-    print ("Hi ", mail_address, "I find the face on", LocalTime)
 
 #open result CSV file
 file = open('./result/res_Insert_name.csv', 'w')
@@ -23,7 +18,6 @@ face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 cap = cv2.VideoCapture(0)
 
 one_m_timer_start = time.time()
-Mail_add = insung.park123@gmail.com
 while 1:
     s = time.clock()  #Start time
     ret, img = cap.read()
@@ -39,9 +33,8 @@ while 1:
         e = time.clock()  #Finish time
         msg = str(s) + ',' + str(e) + ',' + str(e-s) + ',' + str(true_count) +'\n'
         file.write(msg)  #writing about start time, end time, spend time, face detection count
-
-        mylog('','',msg)
-
+        print "Detection Face Number : ", true_count
+        
     cv2.imshow('img',img)
     k = cv2.waitKey(30) & 0xff  #If you press "ESC" button on your keyboard program is end
    
@@ -54,3 +47,4 @@ file.close()
 
 print "All count :" , all_count    #show all_count
 print "Detection count :" , true_count    #show detection count
+print "======================END======================"
